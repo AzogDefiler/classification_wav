@@ -3,19 +3,19 @@
 такая топология была выбрана по причине того что для преобразования звуковой дорожки использовались Мел-кепстральные коэффициенты (MFCC) https://habr.com/post/140828/ , после чего получается фиксированный размер входных данных, заведомо не хотел юзать RNN.
 
 -----------------------------------------------------------
-необходимые фреймворки и либы:
-keras
-numpy
-pandas
-matplotlib
-librosa - pip install librosa
-soundfile - pip install SoundFile
-sklearn
-wave
-glob
-struct
+## необходимые фреймворки и либы:
+* keras
+* numpy
+* pandas
+* matplotlib
+* librosa - pip install librosa
+* soundfile - pip install SoundFile
+* sklearn
+* wave
+* glob
+* struct
 
-jupyter notebook
+* jupyter notebook
 
 -----------------------------------------------------------
 1) закинуть в папку 'data_v_7_stc/test' валидационные данные
