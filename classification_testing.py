@@ -69,16 +69,16 @@ def extract_feature(file_name):
     # преобразование Фурье
     stft = np.abs(librosa.stft(X))
     # MFCC
-    mfccs = np.mean(librosa.feature.mfcc(y=X, sr=sample_rate, n_mfcc=40).T,axis=0)
+    mfccs = np.mean(librosa.feature.mfcc(y=X, sr=sample_rate, n_mfcc=128).T,axis=0)
     # chroma
-    chroma = np.mean(librosa.feature.chroma_stft(S=stft, sr=sample_rate).T,axis=0)
+#     chroma = np.mean(librosa.feature.chroma_stft(S=stft, sr=sample_rate).T,axis=0)
     # мэл спектр
     mel = np.mean(librosa.feature.melspectrogram(X, sr=sample_rate).T,axis=0)
     # спектр-ный контраст
-    contrast = np.mean(librosa.feature.spectral_contrast(S=stft, sr=sample_rate).T,axis=0)
+#     contrast = np.mean(librosa.feature.spectral_contrast(S=stft, sr=sample_rate).T,axis=0)
 
-    tonnetz = np.mean(librosa.feature.tonnetz(y=librosa.effects.harmonic(X), sr=sample_rate).T,axis=0)
-    return mfccs,chroma,mel,contrast,tonnetz
+#     tonnetz = np.mean(librosa.feature.tonnetz(y=librosa.effects.harmonic(X), sr=sample_rate).T,axis=0)
+    return mfccs,mel
 
 
 # In[5]:
@@ -99,14 +99,14 @@ GOOD=0 # кол-во правильно опред-ых файлов в подм
 BAD=0 # кол-во не правильно опред-ых файлов в подмножестве 'A'
 
 filew = open("result.txt","a") 
-features_test = np.empty((0,193))
+features_test = np.empty((0,256))
 for file in files_test:    
     try:
-        mfccs, chroma, mel, contrast,tonnetz = extract_feature(file)
+        mfccs,mel = extract_feature(file)
     except Exception as e:
         print("[Error] extract feature error. %s" % (e))
         continue
-    ext_features_test = np.hstack([mfccs,chroma,mel,contrast,tonnetz])
+    ext_features_test = np.hstack([mfccs,mel])
 #     features_test = np.vstack([features_test,ext_features_test])
     pred = model.predict(np.expand_dims([ext_features_test],axis=2))
     score = pred.max()
