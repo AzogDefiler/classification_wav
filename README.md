@@ -4,8 +4,8 @@
 
 -----------------------------------------------------------
 необходимые фреймворки и либы:
-keras \t
-numpy \t
+keras
+numpy
 pandas
 matplotlib
 librosa - pip install librosa
